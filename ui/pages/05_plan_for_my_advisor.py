@@ -12,7 +12,7 @@ buttons.page_start()
 st.title("Plan for My Advisor")
 st.info("Advisor plan UI will be implemented in a later milestone.")
 
-with buttons.variant("link"):
+with buttons.scope("link"):
     if buttons.secondary("Refresh", key="pfma_refresh"):
         st.rerun()
 
