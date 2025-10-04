@@ -310,5 +310,5 @@ if pro_clicked:
     aud["qualifiers"] = {k: False for k in aud.get("qualifiers", {}).keys()}
     care_context["person_name"] = "Your Loved One"
     # Route to professional intake if available; otherwise keep UX alive
-    target = "pages/tell_us_about_professional.py"
+    target = "pages/contextual_welcome.py"
     safe_switch_page(target, "flow", "pro")
