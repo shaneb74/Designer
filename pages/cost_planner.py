@@ -60,9 +60,9 @@ to switch modes later.
 
     if clicked == "cp_estimate":
         ctx["planning_mode"] = "estimating"
-        st.switch_page("pages/cost_planner_estimate.py")
+        st.switch_page("ui/pages/cost_planner_estimate.py")
     elif clicked == "cp_plan":
         ctx["planning_mode"] = "planning"
-        st.switch_page("pages/cost_planner_estimate.py")
+        st.switch_page("ui/pages/cost_planner_estimate.py")
     elif clicked == "cp_back_hub":
-        st.switch_page("pages/hub.py")
+        st.switch_page("ui/pages/hub.py")

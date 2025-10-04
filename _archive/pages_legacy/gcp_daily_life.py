@@ -72,9 +72,9 @@ if submitted:
         error_placeholder.error("Answer each question before moving on.")
     else:
         answers.update(selections)
-        st.switch_page("pages/gcp_health_safety.py")
+        st.switch_page("ui/pages/gcp_health_safety.py")
 
 if st.button("Back to financial questions"):
-    st.switch_page("pages/gcp.py")
+    st.switch_page("ui/pages/gcp.py")
 
 st.markdown('</div>', unsafe_allow_html=True)

@@ -50,7 +50,7 @@ st.markdown('<div style="border: 1px solid #e0e0e0; border-radius: 8px; padding:
 st.markdown("### Partner Spotlight")
 st.markdown("<p>Explore our trusted partners-vetted for your peace of mind.</p>", unsafe_allow_html=True)
 if st.button("See All Partners", key="partner_spotlight", type="secondary"):
-    st.switch_page("pages/trusted_partners.py")
+    st.switch_page("ui/pages/trusted_partners.py")
 st.markdown('</div>', unsafe_allow_html=True)
 
 # Second Opinion Card

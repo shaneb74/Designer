@@ -73,6 +73,6 @@ with cost_planner_page_container():
     )
 
     if clicked == "mods_back_modules":
-        st.switch_page("pages/cost_planner_modules.py")
+        st.switch_page("ui/pages/cost_planner_modules.py")
     elif clicked == "mods_next_option":
-        st.switch_page("pages/cost_planner_skipped.py")
+        st.switch_page("ui/pages/cost_planner_skipped.py")

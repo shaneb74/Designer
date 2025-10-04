@@ -242,10 +242,10 @@ def render_intro() -> None:
             _persist_snapshot(state)
             care_context["gcp_answers"] = answers
             st.session_state["gcp"] = gcp_state
-            safe_switch_page("pages/gcp_daily_life.py")
+            safe_switch_page("ui/pages/gcp_daily_life.py")
 
         if st.button("Return to Hub", use_container_width=True):
-            safe_switch_page("pages/hub.py")
+            safe_switch_page("ui/pages/hub.py")
 
     if debug_flag:
         with st.expander("Debug: GCP intro state", expanded=False):

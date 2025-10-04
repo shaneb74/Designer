@@ -50,10 +50,10 @@ st.markdown('<div class="sn-sticky-bottom">', unsafe_allow_html=True)
 c1,c2 = st.columns([1,1])
 with c1:
     if st.button('Back: Cost Planner'):
-        st.switch_page('pages/cost_planner.py')
+        st.switch_page('ui/pages/03_cost_planner.py')
 with c2:
     if st.button('Next: PFMA'):
-        st.switch_page('pages/pfma.py')
+        st.switch_page('ui/pages/pfma.py')
 st.markdown('</div>', unsafe_allow_html=True)
 
 st.markdown('</div>', unsafe_allow_html=True)

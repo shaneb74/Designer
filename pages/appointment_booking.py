@@ -46,7 +46,7 @@ email = st.text_input("Email", value="your@email.com")
 time = st.radio("Best Time to Call", ["Morning", "Afternoon", "Evening"])
 notes = st.text_area("Notes (optional)", value="Any special instructions?")
 if st.button("Book My Call", key="book_call", type="primary"):
-    st.switch_page("pages/appointment_interstitial.py")
+    st.switch_page("ui/pages/appointment_interstitial.py")
 st.markdown('</div>', unsafe_allow_html=True)
 
 # Navigation

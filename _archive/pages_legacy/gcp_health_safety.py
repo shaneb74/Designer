@@ -112,9 +112,9 @@ if submitted:
             if qid in MULTI_QUESTIONS:
                 st.session_state[f"gcp_{qid}"] = list(value)
         answers.update(processed)
-        st.switch_page("pages/gcp_context_prefs.py")
+        st.switch_page("ui/pages/gcp_context_prefs.py")
 
 if st.button("Back to Daily Life & Support"):
-    st.switch_page("pages/gcp_daily_life.py")
+    st.switch_page("ui/pages/gcp_daily_life.py")
 
 st.markdown('</div>', unsafe_allow_html=True)

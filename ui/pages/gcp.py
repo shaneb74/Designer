@@ -68,7 +68,7 @@ def main():
     # bottom nav rendered outside the section to keep button interactions working
     st.markdown('<div data-variant="secondary">', unsafe_allow_html=True)
     if st.button("Return to Hub", use_container_width=True, key="gcp_return_hub"):
-        safe_switch_page("ui/pages/app.py")
+        safe_switch_page("ui/pages/hub.py")
     st.markdown("</div>", unsafe_allow_html=True)
 
     buttons.page_end()

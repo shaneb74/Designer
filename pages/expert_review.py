@@ -26,6 +26,6 @@ st.success("All required modules are complete.")
 st.info("Optional: You may want to revisit the Benefits Check module to ensure coverage is maximized.")
 
 if st.button("Back to Hub", key="expert_review_back"):
-    st.switch_page("pages/hub.py")
+    st.switch_page("ui/pages/hub.py")
 
 st.markdown('</div>', unsafe_allow_html=True)

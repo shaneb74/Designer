@@ -17,9 +17,9 @@ st.markdown('---')
 col1, col2 = st.columns(2)
 with col1:
     if st.button("Do Prep Now (Recommended)", key="ai_do_prep", type="primary"):
-        st.switch_page("pages/pfma_confirm_care_plan.py")
+        st.switch_page("ui/pages/pfma_confirm_care_plan.py")
 with col2:
     if st.button("Skip & Remind Me", key="ai_skip_prep"):
-        st.switch_page("pages/hub.py")
+        st.switch_page("ui/pages/hub.py")
 
 st.markdown('</div>', unsafe_allow_html=True)
