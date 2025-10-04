@@ -157,8 +157,8 @@ with cost_planner_page_container():
     )
 
     if clicked == "benefits_back_hub":
-        st.switch_page("pages/hub.py")
+        st.switch_page("ui/pages/hub.py")
     elif clicked == "benefits_back_medical":
-        st.switch_page("pages/cost_planner_daily_aids.py")
+        st.switch_page("ui/pages/cost_planner_daily_aids.py")
     elif clicked == "benefits_next_debts":
-        st.switch_page("pages/cost_planner_freeform.py")
+        st.switch_page("ui/pages/cost_planner_freeform.py")

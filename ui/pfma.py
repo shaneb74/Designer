@@ -25,15 +25,15 @@ PFMA_STEPS: List[tuple[str, str]] = [
 
 
 STEP_TO_PAGE = {
-    "booking": "pages/pfma.py",
-    "care_plan": "pages/pfma_confirm_care_plan.py",
-    "cost_plan": "pages/pfma_confirm_cost_plan.py",
-    "care_needs": "pages/pfma_confirm_care_needs.py",
-    "care_prefs": "pages/pfma_confirm_care_prefs.py",
-    "household_legal": "pages/pfma_confirm_household_legal.py",
-    "benefits_coverage": "pages/pfma_confirm_benefits_coverage.py",
-    "personal_info": "pages/pfma_confirm_personal_info.py",
-    "summary": "pages/pfma_summary.py",
+    "booking": "ui/pages/pfma.py",
+    "care_plan": "ui/pages/pfma_confirm_care_plan.py",
+    "cost_plan": "ui/pages/pfma_confirm_cost_plan.py",
+    "care_needs": "ui/pages/pfma_confirm_care_needs.py",
+    "care_prefs": "ui/pages/pfma_confirm_care_prefs.py",
+    "household_legal": "ui/pages/pfma_confirm_household_legal.py",
+    "benefits_coverage": "ui/pages/pfma_confirm_benefits_coverage.py",
+    "personal_info": "ui/pages/pfma_confirm_personal_info.py",
+    "summary": "ui/pages/pfma_summary.py",
 }
 
 

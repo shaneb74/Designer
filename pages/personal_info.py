@@ -50,8 +50,8 @@ with col1:
     st.button("Back to Benefits", key="back_pi", type="secondary")
 with col2:
     if st.button("Finish Prep", key="next_pi", type="primary"):
-        st.switch_page('pages/hub.py')
-        st.switch_page("pages/hub.py")
+        st.switch_page('ui/pages/hub.py')
+        st.switch_page("ui/pages/hub.py")
 st.markdown('</div>', unsafe_allow_html=True)
 
 st.markdown('</div>', unsafe_allow_html=True)

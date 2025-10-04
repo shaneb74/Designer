@@ -50,8 +50,8 @@ with col1:
     st.button("Back to Household", key="back_bc", type="secondary")
 with col2:
     if st.button("Next: Personal Info", key="next_bc", type="primary"):
-        st.switch_page('pages/personal_info.py')
-        st.switch_page("pages/personal_info.py")
+        st.switch_page('ui/pages/personal_info.py')
+        st.switch_page("ui/pages/personal_info.py")
 st.markdown('</div>', unsafe_allow_html=True)
 
 st.markdown('</div>', unsafe_allow_html=True)

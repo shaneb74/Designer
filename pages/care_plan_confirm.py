@@ -50,8 +50,8 @@ with col1:
     st.button("Back to Booking", key="back_cpc", type="secondary")
 with col2:
     if st.button("Next: Cost Plan", key="next_cpc", type="primary"):
-        st.switch_page('pages/cost_plan_confirm.py')
-        st.switch_page("pages/cost_plan_confirm.py")
+        st.switch_page('ui/pages/cost_plan_confirm.py')
+        st.switch_page("ui/pages/cost_plan_confirm.py")
 st.markdown('</div>', unsafe_allow_html=True)
 
 st.markdown('</div>', unsafe_allow_html=True)

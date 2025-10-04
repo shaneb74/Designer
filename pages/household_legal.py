@@ -50,8 +50,8 @@ with col1:
     st.button("Back to Care Preferences", key="back_hl", type="secondary")
 with col2:
     if st.button("Next: Benefits & Coverage", key="next_hl", type="primary"):
-        st.switch_page('pages/benefits_coverage.py')
-        st.switch_page("pages/benefits_coverage.py")
+        st.switch_page('ui/pages/benefits_coverage.py')
+        st.switch_page("ui/pages/benefits_coverage.py")
 st.markdown('</div>', unsafe_allow_html=True)
 
 st.markdown('</div>', unsafe_allow_html=True)

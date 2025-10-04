@@ -88,8 +88,8 @@ with cost_planner_page_container():
     )
 
     if clicked == "evaluation_back_hub":
-        st.switch_page("pages/hub.py")
+        st.switch_page("ui/pages/hub.py")
     elif clicked == "evaluation_back_debts":
-        st.switch_page("pages/cost_planner_freeform.py")
+        st.switch_page("ui/pages/cost_planner_freeform.py")
     elif clicked == "evaluation_next_summary":
-        st.switch_page("pages/cost_planner_estimate_summary.py")
+        st.switch_page("ui/pages/cost_planner_estimate_summary.py")

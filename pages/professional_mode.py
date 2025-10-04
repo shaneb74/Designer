@@ -19,6 +19,6 @@ st.title("Professional Mode")
 st.write("You are signed in as a professional user. Future workflow will go here.")
 
 if st.button("Back to Hub", key="prof_back_hub"):
-    st.switch_page("pages/hub.py")
+    st.switch_page("ui/pages/hub.py")
 
 st.markdown('</div>', unsafe_allow_html=True)

@@ -46,7 +46,7 @@ _inject_global_css()
 # ==========================================
 # Pre-flight syntax check for page modules
 # ==========================================
-def _syntax_preflight(paths=("pages",), stop_on_error=True):
+def _syntax_preflight(paths=("ui/pages",), stop_on_error=True):
     import pathlib, io, tokenize
     errors = []
     for root in paths:
@@ -129,48 +129,23 @@ def ensure_page(path: str, title: str, icon: str, default: bool = False):
 # Pages to register (controls nav order)
 # ==========================================
 INTENDED = [
-    ("pages/welcome.py", "Welcome", "👋", True),
-    ("pages/hub.py", "Your Concierge Care Hub", "🏠", False),
+    ("ui/pages/00_welcome.py", "Welcome", "👋", True),
+    ("ui/pages/01_audiencing.py", "Start", "🏠", False),
+    ("ui/pages/hub.py", "Your Concierge Care Hub", "🧭", False),
 
     # contextual welcome wrappers
-    ("pages/contextual_welcome_self.py", "Contextual Welcome - For You", "ℹ️", False),
-    ("pages/contextual_welcome_loved_one.py", "Contextual Welcome - For Loved Ones", "ℹ️", False),
+    ("ui/pages/contextual_welcome_self.py", "Contextual Welcome - For You", "ℹ️", False),
+    ("ui/pages/contextual_welcome_loved_one.py", "Contextual Welcome - For Loved Ones", "ℹ️", False),
 
-    ("pages/professional_mode.py", "Professional Mode", "🧑", False),
-    ("pages/gcp.py", "Guided Care Plan", "🗺️", False),
-    ("pages/gcp_daily_life.py", "GCP - Daily Life & Support", "🗺️", False),
-    ("pages/gcp_health_safety.py", "GCP - Health & Safety", "🗺️", False),
-    ("pages/gcp_context_prefs.py", "GCP - Context & Preferences", "🗺️", False),
-    ("pages/gcp_recommendation.py", "GCP Recommendation", "🗺️", False),
-    ("pages/cost_planner.py", "Cost Planner: Mode", "💰", False),
-    ("pages/cost_planner_estimate.py", "Cost Planner: Estimate", "💰", False),
-    ("pages/cost_planner_estimate_summary.py", "Cost Planner: Quick Summary", "💰", False),
-    ("pages/cost_planner_modules.py", "Cost Planner: Modules", "📊", False),
-    ("pages/cost_planner_home_care.py", "Home Care Support", "🏠", False),
-    ("pages/cost_planner_daily_aids.py", "Daily Living Aids", "🛠️", False),
-    ("pages/cost_planner_housing.py", "Housing Path", "🏡", False),
-    ("pages/cost_planner_benefits.py", "Benefits Check", "💳", False),
-    ("pages/cost_planner_mods.py", "Age-in-Place Upgrades", "🔧", False),
-    ("pages/expert_review.py", "Expert Review", "🔎", False),
-    ("pages/cost_planner_evaluation.py", "Cost Planner: Evaluation", "🔍", False),
-    ("pages/cost_planner_skipped.py", "Cost Planner: Skipped", "⚠️", False),
-    ("pages/pfma.py", "Plan for My Advisor", "🧭", False),
-    ("pages/appointment_booking.py", "Appointment Booking", "📞", False),
-    ("pages/appointment_interstitial.py", "Call Scheduled", "⏰", False),
-    ("pages/pfma_confirm_care_plan.py", "PFMA * Care Plan Confirmer", "✅", False),
-    ("pages/pfma_confirm_cost_plan.py", "PFMA * Cost Plan Confirmer", "💰", False),
-    ("pages/pfma_confirm_care_needs.py", "PFMA * Care Needs", "🩺", False),
-    ("pages/pfma_confirm_care_prefs.py", "PFMA * Care Preferences", "🎯", False),
-    ("pages/pfma_confirm_household_legal.py", "PFMA * Household & Legal", "🏠", False),
-    ("pages/pfma_confirm_benefits_coverage.py", "PFMA * Benefits & Coverage", "💳", False),
-    ("pages/pfma_confirm_personal_info.py", "PFMA * Personal Info", "👤", False),
-    ("pages/login.py", "Login", "🔐", False),
-    ("pages/ai_advisor.py", "AI Advisor", "🤖", False),
-    ("pages/waiting_room.py", "Waiting Room", "⏳", False),
-    ("pages/trusted_partners.py", "Trusted Partners", "🤝", False),
-    ("pages/export_results.py", "Export Results", "📥", False),
-    ("pages/my_documents.py", "My Documents", "📁", False),
-    ("pages/my_account.py", "My Account", "👤", False),
+    ("ui/pages/professional_mode.py", "Professional Mode", "🧑", False),
+    ("ui/pages/gcp.py", "Guided Care Plan", "🗺️", False),
+    ("ui/pages/gcp_daily_life.py", "GCP - Daily Life & Support", "🗺️", False),
+    ("ui/pages/gcp_health_safety.py", "GCP - Health & Safety", "🗺️", False),
+    ("ui/pages/gcp_context_prefs.py", "GCP - Context & Preferences", "🗺️", False),
+    ("ui/pages/gcp_recommendation.py", "GCP Recommendation", "🗺️", False),
+    ("ui/pages/03_cost_planner.py", "Cost Planner", "💰", False),
+    ("ui/pages/04_smart_review.py", "Smart Review", "🧠", False),
+    ("ui/pages/05_plan_for_my_advisor.py", "Plan for My Advisor", "📘", False),
 ]
 
 # Build the Page objects (ignore missing silently)

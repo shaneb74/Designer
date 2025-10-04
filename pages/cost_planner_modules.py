@@ -90,17 +90,17 @@ with cost_planner_page_container():
     triggered = render_module_cards(cards)
 
     if triggered == "open_quick_estimate":
-        st.switch_page("pages/cost_planner_estimate.py")
+        st.switch_page("ui/pages/cost_planner_estimate.py")
     elif triggered == "open_home_care":
-        st.switch_page("pages/cost_planner_home_care.py")
+        st.switch_page("ui/pages/cost_planner_home_care.py")
     elif triggered == "open_daily_aids":
-        st.switch_page("pages/cost_planner_daily_aids.py")
+        st.switch_page("ui/pages/cost_planner_daily_aids.py")
     elif triggered == "open_housing":
-        st.switch_page("pages/cost_planner_housing.py")
+        st.switch_page("ui/pages/cost_planner_housing.py")
     elif triggered == "open_benefits":
-        st.switch_page("pages/cost_planner_benefits.py")
+        st.switch_page("ui/pages/cost_planner_benefits.py")
     elif triggered == "open_mods":
-        st.switch_page("pages/cost_planner_mods.py")
+        st.switch_page("ui/pages/cost_planner_mods.py")
 
     render_wizard_help("You can revisit modules any time—progress saves automatically.")
 
@@ -112,6 +112,6 @@ with cost_planner_page_container():
     )
 
     if clicked == "mods_back_mode":
-        st.switch_page("pages/cost_planner.py")
+        st.switch_page("ui/pages/03_cost_planner.py")
     elif clicked == "mods_expert_review":
-        st.switch_page("pages/expert_review.py")
+        st.switch_page("ui/pages/expert_review.py")

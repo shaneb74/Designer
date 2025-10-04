@@ -141,6 +141,6 @@ with cost_planner_page_container():
     )
 
     if clicked == "cp_estimate_back_hub":
-        st.switch_page("pages/hub.py")
+        st.switch_page("ui/pages/hub.py")
     elif clicked == "cp_estimate_next":
-        st.switch_page("pages/cost_planner_housing.py")
+        st.switch_page("ui/pages/cost_planner_housing.py")

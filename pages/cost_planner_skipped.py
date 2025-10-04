@@ -58,6 +58,6 @@ with cost_planner_page_container():
     )
 
     if clicked == "skipped_back_evaluation":
-        st.switch_page("pages/cost_planner_evaluation.py")
+        st.switch_page("ui/pages/cost_planner_evaluation.py")
     elif clicked == "skipped_revisit":
-        st.switch_page("pages/cost_planner_modules.py")
+        st.switch_page("ui/pages/cost_planner_modules.py")

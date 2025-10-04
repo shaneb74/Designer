@@ -58,9 +58,9 @@ if submitted:
     for qid, value in processed.items():
         st.session_state[f"gcp_{qid}"] = list(value)
     answers.update(processed)
-    st.switch_page("pages/gcp_recommendation.py")
+    st.switch_page("ui/pages/gcp_recommendation.py")
 
 if st.button("Back to Health & Safety"):
-    st.switch_page("pages/gcp_health_safety.py")
+    st.switch_page("ui/pages/gcp_health_safety.py")
 
 st.markdown('</div>', unsafe_allow_html=True)

@@ -10,6 +10,6 @@ inject_theme()
 st.markdown('<div class="sn-scope dashboard">', unsafe_allow_html=True)
 
 
-st.switch_page("pages/welcome.py")
+st.switch_page("ui/pages/00_welcome.py")
 
 st.markdown('</div>', unsafe_allow_html=True)

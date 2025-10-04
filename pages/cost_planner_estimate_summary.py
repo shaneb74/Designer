@@ -134,8 +134,8 @@ with cost_planner_page_container():
     )
 
     if clicked == "summary_back_hub":
-        st.switch_page("pages/hub.py")
+        st.switch_page("ui/pages/hub.py")
     elif clicked == "summary_back_review":
-        st.switch_page("pages/cost_planner_evaluation.py")
+        st.switch_page("ui/pages/cost_planner_evaluation.py")
     elif clicked == "summary_next_confirm":
-        st.switch_page("pages/cost_plan_confirm.py")
+        st.switch_page("ui/pages/cost_plan_confirm.py")

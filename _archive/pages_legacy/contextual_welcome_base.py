@@ -254,7 +254,7 @@ def render(which: str = "you") -> None:
         if st.button("Continue", key="cw_continue", use_container_width=False, disabled=not can_continue):
             if not aud.get("recipient_name"):
                 aud["recipient_name"] = "You" if entry == "self" else "Your Loved One"
-            _safe_switch_page("pages/hub.py")
+            _safe_switch_page("ui/pages/hub.py")
         st.markdown('</div>', unsafe_allow_html=True)
 
         # Helper captions

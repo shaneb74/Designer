@@ -50,7 +50,7 @@ st.markdown('<div style="border: 1px solid #e0e0e0; border-radius: 8px; padding:
 st.markdown("### My Documents")
 st.markdown("<p>View and manage your loved one's stored documents.</p>", unsafe_allow_html=True)
 if st.button("Go to Documents", key="go_docs", type="primary"):
-    st.switch_page("pages/my_documents.py")
+    st.switch_page("ui/pages/my_documents.py")
 st.markdown('</div>', unsafe_allow_html=True)
 
 # Export Results
@@ -58,7 +58,7 @@ st.markdown('<div style="border: 1px solid #e0e0e0; border-radius: 8px; padding:
 st.markdown("### Export Results")
 st.markdown("<p>Download your care plan and cost summary.</p>", unsafe_allow_html=True)
 if st.button("Export Now", key="go_export", type="primary"):
-    st.switch_page("pages/export_results.py")
+    st.switch_page("ui/pages/export_results.py")
 st.markdown('</div>', unsafe_allow_html=True)
 
 # Change Password

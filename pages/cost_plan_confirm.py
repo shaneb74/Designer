@@ -64,10 +64,10 @@ with cost_planner_page_container():
                 "type": "cost_planner_shared",
                 "audiencing": aud_snapshot,
             }
-            st.switch_page("pages/pfma_confirm_cost_plan.py")
+            st.switch_page("ui/pages/pfma_confirm_cost_plan.py")
     with col_tweak:
         if st.button("Tweak estimate"):
-            st.switch_page("pages/cost_planner_estimate.py")
+            st.switch_page("ui/pages/cost_planner_estimate.py")
 
     render_wizard_help("Need to adjust anything? You can always jump back into modules before sharing.")
 
@@ -79,6 +79,6 @@ with cost_planner_page_container():
     )
 
     if clicked == "confirm_back_hub":
-        st.switch_page("pages/hub.py")
+        st.switch_page("ui/pages/hub.py")
     elif clicked == "confirm_back_summary":
-        st.switch_page("pages/cost_planner_estimate_summary.py")
+        st.switch_page("ui/pages/cost_planner_estimate_summary.py")

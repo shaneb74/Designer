@@ -117,8 +117,8 @@ with cost_planner_page_container():
     )
 
     if clicked == "freeform_back_hub":
-        st.switch_page("pages/hub.py")
+        st.switch_page("ui/pages/hub.py")
     elif clicked == "freeform_back_benefits":
-        st.switch_page("pages/cost_planner_benefits.py")
+        st.switch_page("ui/pages/cost_planner_benefits.py")
     elif clicked == "freeform_next_review":
-        st.switch_page("pages/cost_planner_evaluation.py")
+        st.switch_page("ui/pages/cost_planner_evaluation.py")

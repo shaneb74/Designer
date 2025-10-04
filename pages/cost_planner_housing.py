@@ -92,8 +92,8 @@ with cost_planner_page_container():
     )
 
     if clicked == "housing_back_hub":
-        st.switch_page("pages/hub.py")
+        st.switch_page("ui/pages/hub.py")
     elif clicked == "housing_back_intro":
-        st.switch_page("pages/cost_planner_estimate.py")
+        st.switch_page("ui/pages/cost_planner_estimate.py")
     elif clicked == "housing_next_care":
-        st.switch_page("pages/cost_planner_home_care.py")
+        st.switch_page("ui/pages/cost_planner_home_care.py")

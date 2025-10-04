@@ -13,6 +13,6 @@ st.header("Referral Intake")
 st.write("This is a placeholder screen. Routing and form will be wired later.")
 
 if st.button("Back: Audiencing"):
-    st.switch_page('pages/audiencing.py')
+    st.switch_page('ui/pages/01_audiencing.py')
 
 st.markdown('</div>', unsafe_allow_html=True)
