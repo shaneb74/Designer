@@ -1,7 +1,39 @@
 from __future__ import annotations
 
 import streamlit as st
+if not hasattr(st, "rerun"):
+    # back-compat with older Streamlit
+    st.rerun = getattr(st, "experimental_rerun")
+
 from ui.theme import inject_theme
+
+
+from pathlib import Path
+import streamlit as st
+
+_REDIRECTS = {
+    "pages/tell_us_about_loved_one.py": "pages/contextual_welcome.py",
+    "pages/tell_us_about_you.py": "pages/contextual_welcome.py",
+    "pages/tell_us_about_john.py": "pages/contextual_welcome.py",
+}
+
+def safe_switch_page(target: str, *args, fallback: str = "pages/contextual_welcome.py"):
+    # Redirect old targets to new
+    target = _REDIRECTS.get(target, target)
+    try:
+        # If file missing, go to fallback
+        if not Path(target).exists():
+            st.warning("This step was removed. Taking you to the welcome experience.")
+            st.switch_page(fallback)
+            st.experimental_rerun()
+            return
+        st.switch_page(target)
+        st.experimental_rerun()
+    except Exception:
+        # Any failure -> fallback
+        st.switch_page(fallback)
+        st.experimental_rerun()
+
 
 inject_theme()
 
@@ -187,7 +219,7 @@ def safe_switch_page(target: str, query_key: str | None = None, query_value: str
     except Exception:
         if query_key and query_value:
             st.query_params[query_key] = query_value
-        st.rerun()
+        st.experimental_rerun()
 
 # =====================================================================
 # HERO - text on the left, image on the right; CTAs inside the left col
@@ -310,5 +342,5 @@ if pro_clicked:
     aud["qualifiers"] = {k: False for k in aud.get("qualifiers", {}).keys()}
     care_context["person_name"] = "Your Loved One"
     # Route to professional intake if available; otherwise keep UX alive
-    target = "pages/contextual_welcome.py"
+    target = "pages/tell_us_about_professional.py"
     safe_switch_page(target, "flow", "pro")
