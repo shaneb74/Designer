@@ -187,7 +187,7 @@ def safe_switch_page(target: str, query_key: str | None = None, query_value: str
     except Exception:
         if query_key and query_value:
             st.query_params[query_key] = query_value
-        st.experimental_rerun()
+        st.rerun()
 
 # =====================================================================
 # HERO - text on the left, image on the right; CTAs inside the left col
