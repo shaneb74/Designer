@@ -3,13 +3,10 @@ from __future__ import annotations
 
 import streamlit as st
 
-from senior_nav.util import page_log
-
 _SCOPE_KEY = "__sn_buttons_scope_stack__"
 
 
 def page_start():
-    page_log.mark_render()
     stack = st.session_state.setdefault(_SCOPE_KEY, 0)
     st.session_state[_SCOPE_KEY] = stack + 1
     st.markdown('<div class="sn-scope">', unsafe_allow_html=True)
