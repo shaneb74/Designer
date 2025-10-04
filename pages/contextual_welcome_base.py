@@ -8,7 +8,7 @@ from audiencing import ensure_audiencing_state, snapshot_audiencing
 from ui.components import card_panel
 from ui.theme import inject_theme
 
-# Images should live at:
+# Images live at:
 # static/images/contextual_welcome_self.png
 # static/images/contextual_welcome_someone_else.png
 IMAGE_MAP = {
