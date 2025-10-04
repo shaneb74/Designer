@@ -121,8 +121,8 @@ def ensure_page(path: str, title: str, icon: str, default: bool = False):
 INTENDED = [
     ("pages/welcome.py", "Welcome", "👋", True),
     ("pages/hub.py", "Your Concierge Care Hub", "🏠", False),
-    ("pages/contextual_welcome.py", "Contextual Welcome - For You", "ℹ️", False),
-    ("pages/contextual_welcome.py", "Contextual Welcome - For Loved Ones", "ℹ️", False),
+    ("pages/contextual_welcome_self.py", "Contextual Welcome - For You", "ℹ️", False),
+    ("pages/contextual_welcome_loved_one.py", "Contextual Welcome - For Loved Ones", "ℹ️", False),
     ("pages/professional_mode.py", "Professional Mode", "🧑", False),
     ("pages/gcp.py", "Guided Care Plan", "🗺️", False),
     ("pages/gcp_daily_life.py", "GCP - Daily Life & Support", "🗺️", False),
