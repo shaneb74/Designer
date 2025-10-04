@@ -24,7 +24,7 @@ def apply_global_ux():
 
 # Flows
 FLOW_MAIN = [
-  'audiencing', 'tell_us_about_you', 'tell_us_about_loved_one',
+  'audiencing',
   'care_needs', 'care_prefs', 'household_legal',
   'benefits_coverage', 'personal_info', 'care_plan_confirm',
   'appointment_booking', 'pfma', 'hub'

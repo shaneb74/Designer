@@ -25,14 +25,14 @@ def safe_switch_page(target: str, *args, fallback: str = "pages/contextual_welco
         if not Path(target).exists():
             st.warning("This step was removed. Taking you to the welcome experience.")
             st.switch_page(fallback)
-            st.experimental_rerun()
+            st.rerun()
             return
         st.switch_page(target)
-        st.experimental_rerun()
+        st.rerun()
     except Exception:
         # Any failure -> fallback
         st.switch_page(fallback)
-        st.experimental_rerun()
+        st.rerun()
 
 
 inject_theme()
@@ -219,7 +219,7 @@ def safe_switch_page(target: str, query_key: str | None = None, query_value: str
     except Exception:
         if query_key and query_value:
             st.query_params[query_key] = query_value
-        st.experimental_rerun()
+        st.rerun()
 
 # =====================================================================
 # HERO - text on the left, image on the right; CTAs inside the left col
@@ -342,5 +342,5 @@ if pro_clicked:
     aud["qualifiers"] = {k: False for k in aud.get("qualifiers", {}).keys()}
     care_context["person_name"] = "Your Loved One"
     # Route to professional intake if available; otherwise keep UX alive
-    target = "pages/tell_us_about_professional.py"
+    target = "pages/contextual_welcome.py"
     safe_switch_page(target, "flow", "pro")

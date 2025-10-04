@@ -42,7 +42,7 @@ def safe_switch_page(target: str) -> None:
         st.switch_page(target)  # type: ignore[attr-defined]
     except Exception:
         st.query_params["next"] = target
-        st.experimental_rerun()
+        st.rerun()
 
 
 def _ensure_care_context() -> dict[str, object]:

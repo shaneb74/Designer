@@ -61,7 +61,7 @@ def render():
             "kind": "audiencing_set",
             "data": st.session_state["audiencing"],
         })
-        st.experimental_rerun()
+        st.rerun()
 
     if get_audience()["qualifiers"]["on_medicaid"]:
         st.info("Medicaid path noted. We'll show Medicaid-aligned guidance and planners.")
