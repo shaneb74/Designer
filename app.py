@@ -1,9 +1,16 @@
 from __future__ import annotations
 
-# app.py - Senior Navigator app bootstrap with robust CSS injection
+# app.py - Senior Navigator bootstrap (cleaned)
 
 from pathlib import Path
+import io
+import tokenize
 import streamlit as st
+
+# --- Streamlit rerun: back-compat shim ---
+if not hasattr(st, "rerun"):
+    # Older Streamlit exposed experimental_rerun
+    st.rerun = getattr(st, "experimental_rerun")
 
 # ===============================
 # Theme import with safe fallback
@@ -11,7 +18,6 @@ import streamlit as st
 try:
     from ui.theme import inject_theme  # preferred path
 except Exception:
-    # Fallback keeps the app running even if the theme module is missing/broken
     def inject_theme() -> None:
         st.markdown(
             """
@@ -28,7 +34,6 @@ except Exception:
 # Global CSS injection (theme comes in last)
 # ==========================================
 def _inject_global_css() -> None:
-    # 1) Inject repo-level stylesheet FIRST (if present)
     css_path = Path("static/style.css")
     if css_path.exists():
         try:
@@ -37,36 +42,29 @@ def _inject_global_css() -> None:
             extra = css_path.read_bytes().decode(errors="ignore").strip()
         v = int(css_path.stat().st_mtime)
         st.markdown(f"<style>{extra}</style><!-- v:{v} -->", unsafe_allow_html=True)
-
-    # 2) Inject the theme LAST so it wins the cascade
     inject_theme()
 
-# Call once on startup (before you render anything)
 _inject_global_css()
 
 # ==========================================
 # Pre-flight syntax check for page modules
 # ==========================================
 def _syntax_preflight(paths=("pages",), stop_on_error=True):
-    import pathlib, io, tokenize
-
     errors = []
     for root in paths:
-        for p in pathlib.Path(root).rglob("*.py"):
+        for p in Path(root).rglob("*.py"):
             try:
                 src = p.read_text(encoding="utf-8")
             except Exception as e:
                 errors.append((p, 0, 0, f"read error: {e}", ""))
                 continue
             try:
-                # Tokenize first to flush out invisible bad chars, then compile
                 tokenize.generate_tokens(io.StringIO(src).readline)
                 compile(src, str(p), "exec", dont_inherit=True)
             except SyntaxError as e:
                 errors.append((p, e.lineno or 0, e.offset or 0, e.msg, e.text or ""))
             except Exception as e:
                 errors.append((p, 0, 0, f"{type(e).__name__}: {e}", ""))
-
     if errors:
         st.error("Syntax/parse error(s) found. Fix these before running pages.")
         for p, line, col, msg, txt in errors:
@@ -77,8 +75,8 @@ def _syntax_preflight(paths=("pages",), stop_on_error=True):
         if stop_on_error:
             st.stop()
 
-# Run once at startup (comment out in prod if you want)
-_syntax_preflight()
+# (Optional) enable locally; comment in prod if you want
+# _syntax_preflight()
 
 # ==========================================
 # Session bootstrap (prototype auth flag)
@@ -90,18 +88,10 @@ if "is_authenticated" not in st.session_state:
 # First-load boot redirect (force Welcome once per session)
 # ==========================================
 def _force_welcome_once() -> None:
-    """
-    On the first run of a new session, clear query params so the router
-    chooses the default page (Welcome). Subsequent runs in the same
-    session keep the user's current page.
-    """
+    """On first run of a new session, clear query params so router lands on Welcome."""
     if st.session_state.get("_boot_forced_welcome"):
         return
-
-    # Mark before rerun to avoid loops
     st.session_state["_boot_forced_welcome"] = True
-
-    # Clear any URL hints (?page=...) that would deep-link past Welcome
     try:
         st.query_params.clear()  # Streamlit ≥ 1.33
     except Exception:
@@ -109,8 +99,6 @@ def _force_welcome_once() -> None:
             st.experimental_set_query_params()  # older API
         except Exception:
             pass
-
-    # Rerun so navigation resolves to the default page
     st.rerun()
 
 # ==========================================
@@ -119,27 +107,22 @@ def _force_welcome_once() -> None:
 def ensure_page(path: str, title: str, icon: str, default: bool = False):
     p = Path(path)
     if not p.exists():
-        return None, path
-    page = (
+        return None
+    return (
         st.Page(path, title=title, icon=icon, default=True)
         if default
         else st.Page(path, title=title, icon=icon)
     )
-    return page, None
 
 # ==========================================
 # Pages to register (controls nav order)
+# NOTE: All former tell_us_* flows now point to contextual_welcome
 # ==========================================
 INTENDED = [
     ("pages/welcome.py", "Welcome", "👋", True),
     ("pages/hub.py", "Your Concierge Care Hub", "🏠", False),
     ("pages/contextual_welcome.py", "Contextual Welcome - For You", "ℹ️", False),
-    (
-        "pages/contextual_welcome.py",
-        "Contextual Welcome - For Loved Ones",
-        "ℹ️",
-        False,
-    ),
+    ("pages/contextual_welcome.py", "Contextual Welcome - For Loved Ones", "ℹ️", False),
     ("pages/professional_mode.py", "Professional Mode", "🧑", False),
     ("pages/gcp.py", "Guided Care Plan", "🗺️", False),
     ("pages/gcp_daily_life.py", "GCP - Daily Life & Support", "🗺️", False),
@@ -161,13 +144,13 @@ INTENDED = [
     ("pages/pfma.py", "Plan for My Advisor", "🧭", False),
     ("pages/appointment_booking.py", "Appointment Booking", "📞", False),
     ("pages/appointment_interstitial.py", "Call Scheduled", "⏰", False),
-    ("pages/pfma_confirm_care_plan.py", "PFMA * Care Plan Confirmer", "✅", False),
-    ("pages/pfma_confirm_cost_plan.py", "PFMA * Cost Plan Confirmer", "💰", False),
-    ("pages/pfma_confirm_care_needs.py", "PFMA * Care Needs", "🩺", False),
-    ("pages/pfma_confirm_care_prefs.py", "PFMA * Care Preferences", "🎯", False),
-    ("pages/pfma_confirm_household_legal.py", "PFMA * Household & Legal", "🏠", False),
-    ("pages/pfma_confirm_benefits_coverage.py", "PFMA * Benefits & Coverage", "💳", False),
-    ("pages/pfma_confirm_personal_info.py", "PFMA * Personal Info", "👤", False),
+    ("pages/pfma_confirm_care_plan.py", "PFMA • Care Plan", "✅", False),
+    ("pages/pfma_confirm_cost_plan.py", "PFMA • Cost Plan", "💰", False),
+    ("pages/pfma_confirm_care_needs.py", "PFMA • Care Needs", "🩺", False),
+    ("pages/pfma_confirm_care_prefs.py", "PFMA • Care Preferences", "🎯", False),
+    ("pages/pfma_confirm_household_legal.py", "PFMA • Household & Legal", "🏠", False),
+    ("pages/pfma_confirm_benefits_coverage.py", "PFMA • Benefits & Coverage", "💳", False),
+    ("pages/pfma_confirm_personal_info.py", "PFMA • Personal Info", "👤", False),
     ("pages/login.py", "Login", "🔐", False),
     ("pages/ai_advisor.py", "AI Advisor", "🤖", False),
     ("pages/waiting_room.py", "Waiting Room", "⏳", False),
@@ -177,16 +160,13 @@ INTENDED = [
     ("pages/my_account.py", "My Account", "👤", False),
 ]
 
-pages, missing = [], []
-for args in INTENDED:
-    page, miss = ensure_page(*args)
+# Build final page list (quietly skip any missing files)
+pages = []
+for path, title, icon, *rest in INTENDED:
+    default = bool(rest[0]) if rest else False
+    page = ensure_page(path, title, icon, default)
     if page:
         pages.append(page)
-    if miss:
-        missing.append(miss)
-
-if missing:
-    st.sidebar.warning("Missing pages detected:\\n" + "\\n".join(f"- {m}" for m in missing))
 
 # Kick the session back to Welcome on first load
 _force_welcome_once()
