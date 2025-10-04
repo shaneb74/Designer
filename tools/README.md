@@ -4,13 +4,13 @@ This folder contains small maintenance utilities used by pre-commit and local de
 
 ## Scripts
 
-- `sanitize_ascii.py` — replaces smart quotes, em dashes, NBSP, zero‑width chars.
-- `check_future_imports.py` — verifies `from __future__ import annotations` is right after the module docstring (or top) and before other imports.
-- `fix_future_imports.py` — auto-moves that import to the correct position.
-- `compile_pages.py` — compiles `pages/*.py` to catch syntax errors quickly.
-- `dead_imports.py` — AST-based detector for unused imports.
-- `lint.py` — lightweight linter (tabs, long lines, trailing spaces, final newline, mixed line endings).
-- `fix_scopes.py` / `finish_scope_insertion.py` — placeholders kept for future theming migrations.
+- `sanitize_ascii.py` - replaces smart quotes, em dashes, NBSP, zero‑width chars.
+- `check_future_imports.py` - verifies `from __future__ import annotations` is right after the module docstring (or top) and before other imports.
+- `fix_future_imports.py` - auto-moves that import to the correct position.
+- `compile_pages.py` - compiles `pages/*.py` to catch syntax errors quickly.
+- `dead_imports.py` - AST-based detector for unused imports.
+- `lint.py` - lightweight linter (tabs, long lines, trailing spaces, final newline, mixed line endings).
+- `fix_scopes.py` / `finish_scope_insertion.py` - placeholders kept for future theming migrations.
 
 ## Typical usage
 

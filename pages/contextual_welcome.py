@@ -16,10 +16,10 @@ ENTRY_COPY = {
             " feel about covering the costs. Then we'll craft a roadmap you can revisit"
             " anytime."
         ),
-        "accent": "We'll focus on what matters most for you—clarity, confidence, and next steps.",
+        "accent": "We'll focus on what matters most for you-clarity, confidence, and next steps.",
     },
     "proxy": {
-        "headline": "We’re here to support you and your loved one",
+        "headline": "We're here to support you and your loved one",
         "body": (
             "First we'll learn a bit about their needs and your comfort with planning."
             " From there, we'll recommend options and resources to help you feel ready."
@@ -27,12 +27,12 @@ ENTRY_COPY = {
         "accent": "We're alongside you with guidance that keeps family conversations warm and grounded.",
     },
     "pro": {
-        "headline": "Let’s prepare a plan you can share",
+        "headline": "Let's prepare a plan you can share",
         "body": (
-            "We’ll gather context quickly, then assemble guidance you can review with the"
+            "We'll gather context quickly, then assemble guidance you can review with the"
             " families you support. Everything stays clear, actionable, and advisor-friendly."
         ),
-        "accent": "Keep it collaborative—tailor the plan and export highlights whenever you need.",
+        "accent": "Keep it collaborative-tailor the plan and export highlights whenever you need.",
     },
 }
 

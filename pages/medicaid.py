@@ -18,7 +18,7 @@ with card_panel():
         <p style="margin:0;color:var(--ink-muted);font-size:1.05rem;">
           Because your loved one is on Medicaid, there are special programs and benefits you may qualify for.
           Medicaid has federally and state-supported options that can help with senior living, long-term care, and related services.
-          While our direct resources are limited in this area, we’ve included information and links to trusted organizations that can guide you to the right support.
+          While our direct resources are limited in this area, we've included information and links to trusted organizations that can guide you to the right support.
         </p>
         """,
         unsafe_allow_html=True,

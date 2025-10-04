@@ -121,7 +121,7 @@ def render_intro() -> None:
         st.session_state[FUNDING_SESSION_KEY] = None
 
     st.title("Guided Care Plan")
-    st.caption("We’ll gather context in five sections and build a DecisionTrace at the end.")
+    st.caption("We'll gather context in five sections and build a DecisionTrace at the end.")
     render_stepper(0)
 
     with card_panel():
@@ -143,7 +143,7 @@ def render_intro() -> None:
             index=None,
             key=MEDICAID_SESSION_KEY,
             horizontal=True,
-            help="Medicaid is a state and federal program. If you’re on it, your options and next steps are different. We’ll point you to the right resources.",
+            help="Medicaid is a state and federal program. If you're on it, your options and next steps are different. We'll point you to the right resources.",
         )
 
         _persist_medicaid(state, medicaid_choice)
@@ -151,7 +151,7 @@ def render_intro() -> None:
         info_placeholder = st.empty()
         if medicaid_choice == "Yes":
             info_placeholder.info(
-                "Because Medicaid changes the path, we’ll highlight resources and keep the full plan available."
+                "Because Medicaid changes the path, we'll highlight resources and keep the full plan available."
             )
         elif medicaid_choice == "Unsure":
             info_placeholder.info(

@@ -58,7 +58,7 @@ stepper_placeholder = st.empty()
 with stepper_placeholder.container():
     render_stepper(5 if has_result else 4)
 
-st.title("Guided Care Plan – Recommendation")
+st.title("Guided Care Plan - Recommendation")
 st.caption("Confirm medical context so we can finalize the guidance and directional next steps.")
 
 submitted, selections = _render_chronic_selector(answers.get("chronic_conditions"))
@@ -106,7 +106,7 @@ if has_result:
             """
             <div style="background:#e0f2fe;border:1px solid #bae6fd;padding:1rem;border-radius:12px;margin-bottom:1.2rem;">
                 <strong>Medicaid/state assistance detected.</strong>
-                Medicaid changes how care is paid for. We’ll point you to advisor support designed for Medicaid families.
+                Medicaid changes how care is paid for. We'll point you to advisor support designed for Medicaid families.
             </div>
             """,
             unsafe_allow_html=True,

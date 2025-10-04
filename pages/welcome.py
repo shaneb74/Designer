@@ -208,7 +208,7 @@ with left:
     c1, c2 = st.columns([1, 1])
     with c1:
         if st.button("Start Now", key="hero_start"):
-            safe_switch_page("pages/tell_us_about_loved_one.py", "view", "start")
+            safe_switch_page("pages/contextual_welcome.py", "view", "start")
     with c2:
         if st.button("Log in", key="hero_login"):
             safe_switch_page("pages/login.py", "view", "login")
@@ -269,7 +269,7 @@ with col1:
         "I would like to support my loved ones",
         "For someone",
         "For someone",
-        "pages/tell_us_about_loved_one.py",
+        "pages/contextual_welcome.py",
     )
 
 with col2:
@@ -280,7 +280,7 @@ with col2:
         "I would like to plan for myself",
         "For myself",
         "For me",
-        "pages/tell_us_about_you.py",
+        "pages/contextual_welcome.py",
     )
 
 helper_note = "If you want to assess several people, don't worry - you can easily move on to the next step!"
@@ -297,13 +297,13 @@ if 'continue_clicked' in locals() and continue_clicked:
         aud["recipient_name"] = (aud.get("recipient_name") or "").strip() or None
         aud["proxy_name"] = None
         care_context["person_name"] = aud.get("recipient_name") or "Your Loved One"
-        safe_switch_page("pages/tell_us_about_loved_one.py", "flow", "proxy")
+        safe_switch_page("pages/contextual_welcome.py", "flow", "proxy")
     elif aud.get("entry") == "self":
         care_context["person_name"] = "You"
-        safe_switch_page("pages/tell_us_about_you.py", "flow", "self")
+        safe_switch_page("pages/contextual_welcome.py", "flow", "self")
     else:
         # fallback if entry type is odd
-        safe_switch_page("pages/tell_us_about_loved_one.py", "flow", "proxy")
+        safe_switch_page("pages/contextual_welcome.py", "flow", "proxy")
 
 if pro_clicked:
     aud["entry"] = "pro"

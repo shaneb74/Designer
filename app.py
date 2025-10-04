@@ -133,10 +133,10 @@ def ensure_page(path: str, title: str, icon: str, default: bool = False):
 INTENDED = [
     ("pages/welcome.py", "Welcome", "👋", True),
     ("pages/hub.py", "Your Concierge Care Hub", "🏠", False),
-    ("pages/tell_us_about_you.py", "Contextual Welcome – For You", "ℹ️", False),
+    ("pages/contextual_welcome.py", "Contextual Welcome - For You", "ℹ️", False),
     (
-        "pages/tell_us_about_loved_one.py",
-        "Contextual Welcome – For Loved Ones",
+        "pages/contextual_welcome.py",
+        "Contextual Welcome - For Loved Ones",
         "ℹ️",
         False,
     ),
