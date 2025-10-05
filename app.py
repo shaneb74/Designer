@@ -8,22 +8,15 @@ import inspect
 from pathlib import Path
 import streamlit as st
 
-try:
-    from streamlit.runtime.pages_manager import register_pages  # legacy Streamlit only
-except Exception:
-    def register_pages(*args, **kwargs):
-        # Newer Streamlit doesn't expose this; discovery happens via ./pages/
-        return None
+def register_pages(*args, **kwargs):
+    # disabled: we register pages solely via INTENDED + st.navigation
+    return None
 
 from pathlib import Path
 
-# Include subfolder pages manually
-cp_v2_dir = Path(__file__).parent / "pages" / "cost_planner_v2"
-if cp_v2_dir.exists():
-    for py_file in sorted(cp_v2_dir.glob("*.py")):
-        register_pages([str(py_file)])
-
+# (removed) legacy auto-registration of subfolder pages
 # =========================
+
 # Debug / guardrail toggles
 # =========================
 def _debug_enabled() -> bool:
@@ -208,6 +201,7 @@ def ensure_page(path: str, title: str, icon: str, default: bool = False):
 # Pages to register (controls nav order)
 # ==========================================
 INTENDED = [
+
     ("pages/welcome.py", "Welcome", "👋", True),
     ("pages/hub.py", "Your Concierge Care Hub", "🏠", False),
 
@@ -232,19 +226,8 @@ INTENDED = [
     ("pages/cost_planner_benefits.py", "Benefits Check", "💳", False),
     ("pages/cost_planner_mods.py", "Age-in-Place Upgrades", "🔧", False),
     # --- Cost Planner v2 (PFMA-style UI) ---
-    ("pages/cost_planner_v2/cost_planner_landing_v2.py",        "Cost Planner v2 · Landing",            "💰", False),
-    ("pages/cost_planner_v2/cost_planner_modules_hub_v2.py",     "Cost Planner v2 · Modules Hub",        "🧩", False),
-    ("pages/cost_planner_v2/cost_planner_income_v2.py",          "Cost Planner v2 · Income",             "📈", False),
-    ("pages/cost_planner_v2/cost_planner_expenses_v2.py",        "Cost Planner v2 · Expenses",           "🧾", False),
-    ("pages/cost_planner_v2/cost_planner_benefits_v2.py",        "Cost Planner v2 · Benefits",           "🎖️", False),
-    ("pages/cost_planner_v2/cost_planner_home_v2.py",            "Cost Planner v2 · Home Decisions",     "🏠", False),
-    ("pages/cost_planner_v2/cost_planner_caregiver_v2.py",       "Cost Planner v2 · Caregiver Support",  "🤝", False),
-    ("pages/cost_planner_v2/cost_planner_assets_v2.py",          "Cost Planner v2 · Assets",             "💼", False),
-    ("pages/cost_planner_v2/cost_planner_timeline_v2.py",        "Cost Planner v2 · Timeline (Results)", "📊", False),
-
-
-    ("pages/expert_review.py", "Expert Review", "🔎", False),
-    ("pages/cost_planner_evaluation.py", "Cost Planner: Evaluation", "🔍", False),
+                                        ("pages/expert_review.py", "Expert Review", "🔎", False),
+        ("pages/cost_planner_evaluation.py", "Cost Planner: Evaluation", "🔍", False),
     ("pages/cost_planner_skipped.py", "Cost Planner: Skipped", "⚠️", False),
 
     ("pages/pfma.py", "Plan for My Advisor", "🧭", False),
@@ -264,8 +247,20 @@ INTENDED = [
     ("pages/export_results.py", "Export Results", "📥", False),
     ("pages/my_documents.py", "My Documents", "📁", False),
     ("pages/my_account.py", "My Account", "👤", False),
-]
 
+    # --- Cost Planner v2 (PFMA style) ---
+    ("pages/cost_planner_v2/cost_planner_landing_v2.py", "Cost Planner v2 · Landing", "💰", False),
+    ("pages/cost_planner_v2/cost_planner_modules_hub_v2.py", "Cost Planner v2 · Modules", "🧰", False),
+    ("pages/cost_planner_v2/cost_planner_income_v2.py", "Cost Planner v2 · Income", "🧾", False),
+    ("pages/cost_planner_v2/cost_planner_expenses_v2.py", "Cost Planner v2 · Expenses", "🧮", False),
+    ("pages/cost_planner_v2/cost_planner_benefits_v2.py", "Cost Planner v2 · Benefits", "🎖️", False),
+    ("pages/cost_planner_v2/cost_planner_home_v2.py", "Cost Planner v2 · Home", "🏠", False),
+    ("pages/cost_planner_v2/cost_planner_home_mods_v2.py", "Cost Planner v2 · Home Mods", "🔧", False),
+    ("pages/cost_planner_v2/cost_planner_liquidity_v2.py", "Cost Planner v2 · Liquidity", "💵", False),
+    ("pages/cost_planner_v2/cost_planner_caregiver_v2.py", "Cost Planner v2 · Caregiver", "👥", False),
+    ("pages/cost_planner_v2/cost_planner_assets_v2.py", "Cost Planner v2 · Assets", "🏦", False),
+    ("pages/cost_planner_v2/cost_planner_timeline_v2.py", "Cost Planner v2 · Timeline", "📈", False),
+]
 # Build the Page objects (ignore missing silently)
 pages = []
 for path, title, icon, default in INTENDED:

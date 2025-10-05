@@ -642,3 +642,16 @@ div[style*="display: flex"] {
 .stApp {
   background-color: var(--background-color);
 }
+
+/* === PFMA Hub Card Fixes === */
+.pfma-card h3,
+.pfma-card .pfma-card-title {
+  display:block;
+  width:100%;
+  white-space:normal;
+  word-break:normal;
+  overflow-wrap: anywhere;  /* allow sensible wrapping if needed */
+  hyphens:auto;
+}
+.pfma-card { padding: 16px; border-radius: 16px; background: #fff; }
+.pfma-badge { font-size: 12px; padding: 2px 8px; border-radius: 999px; background:#eef2ff; color:#0b3e91; }

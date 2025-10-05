@@ -1,3 +1,13 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+CP_DIR="pages/cost_planner_v2"
+TARGET="$CP_DIR/cost_planner_timeline_v2.py"
+
+echo "➡️  Writing $TARGET (full, safe replacement)…"
+mkdir -p "$CP_DIR"
+
+cat > "$TARGET" <<'PY'
 """Cost Planner · Your Money Timeline (v2)
 
 Final readout that combines monthly care costs, expenses, home mods, caregiver adders,
@@ -190,3 +200,17 @@ with c1:
 with c2:
     if st.button("Continue → Expert Review", key="tm_next"):
         st.switch_page("pages/expert_review.py")
+PY
+
+# compile check
+python3 - <<'PY'
+import py_compile,sys
+try:
+    py_compile.compile("pages/cost_planner_v2/cost_planner_timeline_v2.py", doraise=True)
+    print("✅ cost_planner_timeline_v2.py compiles")
+except Exception as e:
+    print("❌ Compile failed:", e)
+    sys.exit(1)
+PY
+
+echo "✅ Timeline updated with Liquidity badge + caregiver costs + safe assets fallback."

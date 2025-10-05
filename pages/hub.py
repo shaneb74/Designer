@@ -73,12 +73,9 @@ def _render_tile(
                 <div style="display:flex;justify-content:space-between;align-items:center;">
                     <h3 style="margin:0;">{title}</h3>
                     <span style="font-size:0.85rem;color:var(--ink-muted);">{status_label}</span>
-                </div>
                 <p style="margin:0;color:var(--ink-muted);">{description}</p>
                 <div style="margin-top:auto;">
                     {""}
-                </div>
-            </div>
             """,
             unsafe_allow_html=True,
         )
@@ -110,7 +107,6 @@ def render_hub() -> None:
                     This is your home base. Start with the Guided Care Plan, then explore cost planning and
                     advisor support when you're ready. Everything adapts as you learn more about {person_name}.
                 </p>
-            </div>
             """,
             unsafe_allow_html=True,
         )
@@ -167,4 +163,3 @@ def render_hub() -> None:
 
 
 render_hub()
-
