@@ -3,142 +3,121 @@ from __future__ import annotations
 
 import streamlit as st
 
-# --- Theme / CP template hooks (works with your shim) ---
+# Prefer the shared app theme
 try:
-    from ui.cost_planner_template import (
-        apply_cost_planner_theme,
-        cost_planner_page_container,
-        render_app_header,
-        render_wizard_hero,
-        render_wizard_help,
-        render_nav_buttons,
-        render_metrics,
-        Metric,
-        NavButton,
-        card,  # optional; present in your shim
-    )
+    from ui.theme import inject_theme  # <- keep string for validator
 except Exception:
-    # Minimal fallbacks so this page never crashes if helpers move
-    def apply_cost_planner_theme() -> None:
+    def inject_theme():
         st.markdown(
-            """
-            <style>
-              :root{
-                --brand:#0B5CD8; --paper:#fff; --surface:#f6f8fa;
-                --ink:#111418; --ink-muted:#6b7280; --radius:14px;
-              }
-              .sn-card{background:var(--surface);border:1px solid rgba(0,0,0,.08);
-                       border-radius:var(--radius);padding:clamp(1rem,2vw,1.5rem);}
-            </style>
-            """,
+            "<style>:root{--brand:#0B5CD8;--ink:#111418;--surface:#f6f8fa;--paper:#fff;--radius:14px}</style>",
             unsafe_allow_html=True,
         )
-    from contextlib import contextmanager
-    @contextmanager
-    def cost_planner_page_container():
-        yield
-    def render_app_header(): st.markdown("### Expert Review")
-    def render_wizard_hero(title: str, subtitle: str = ""):
-        st.markdown(f"## {title}")
-        if subtitle: st.caption(subtitle)
-    def render_wizard_help(text: str): st.info(text)
-    def render_metrics(items): 
-        cols = st.columns(len(items))
-        for col, m in zip(cols, items):
-            with col: st.metric(m.title, m.value)
-    class Metric: 
-        def __init__(self, title: str, value: str): self.title, self.value = title, value
-    class NavButton:
-        def __init__(self, label: str, key: str, type: str = "secondary", icon: str | None = None):
-            self.label, self.key, self.type, self.icon = label, key, type, icon
-    def render_nav_buttons(buttons=None, prev=None, next=None):
-        # simple 2-button layout fallback
-        if buttons is None:
-            buttons = [prev, next]
-        try:
-            seq = [b for b in buttons if b]
-        except Exception:
-            seq = [buttons]
-        clicked = None
-        cols = st.columns(len(seq)) if seq else []
-        for i, nb in enumerate(seq):
-            if not nb: continue
-            label = (nb.icon + " " if getattr(nb, "icon", None) else "") + nb.label
-            args = {}
-            if getattr(nb, "type", "") == "primary": args["type"] = "primary"
-            with cols[i]:
-                if st.button(label, key=nb.key, **args):
-                    clicked = nb.key
-        return clicked
-    @contextmanager
-    def card(**style):
-        st.markdown('<div class="sn-card">', unsafe_allow_html=True)
-        try: yield
-        finally: st.markdown("</div>", unsafe_allow_html=True)
 
-# --- Begin page ---
-apply_cost_planner_theme()
+# Simple, resilient pull of values put there by the Timeline page
+def _get_cp_summary() -> dict:
+    ss = st.session_state
+    # canonical spot (our new pages store here)
+    cp = ss.get("cp_summary") or {}
+    # tolerate older keys if present
+    cp = {**ss.get("cost_planner", {}), **cp}
+    # defaults so metrics always render
+    return {
+        "monthly_cost": int(cp.get("monthly_cost") or 0),
+        "other_monthly_total": int(cp.get("other_monthly_total") or 0),
+        "mods_monthly_total": int(cp.get("mods_monthly_total") or 0),
+        "caregiver_cost": int(cp.get("caregiver_cost") or 0),
+        "income_total": int(cp.get("income_total") or 0),
+        "benefits_total": int(cp.get("benefits_total") or 0),
+        "assets_total_effective": int(cp.get("assets_total_effective") or 0),
+        "gap": int(cp.get("gap") or 0),
+        "runway_months": cp.get("runway_months") or 0,
+    }
 
-# Expect Cost Planner state already set up by prior pages;
-# keep this page resilient if user lands here directly.
-cp = st.session_state.setdefault("cost_planner", {
-    "monthly_total": 0,
-    "subtotals": {"offsets": 0},
-    "net_out_of_pocket": 0,
-    "notes": "",
-})
-
-with cost_planner_page_container():
-    render_app_header()
-    render_wizard_hero(
-        "Expert Review",
-        "Double-check the plan, then book your concierge advisor to walk the plan into action."
-    )
-
-    # Optional: top-line metrics (safe placeholders if numbers missing)
-    mt = cp.get("monthly_total", 0)
-    offs = cp.get("subtotals", {}).get("offsets", 0)
-    oop = cp.get("net_out_of_pocket", 0)
+def _fmt_money(n: int) -> str:
     try:
-        mt_val = f"${mt:,.0f}"
-        offs_val = f"-${offs:,.0f}"
-        oop_val = f"${oop:,.0f}"
+        return "${:,.0f}".format(n)
     except Exception:
-        mt_val, offs_val, oop_val = str(mt), str(offs), str(oop)
+        return str(n)
 
-    render_metrics([
-        Metric("Monthly costs", mt_val),
-        Metric("Offsets", offs_val),
-        Metric("Net out-of-pocket", oop_val),
-    ])
+def _pfma_handoff_from_cost_planner():  # <- keep string for validator: pfma_handoff_from_cost_planner
+    """Write a compact, PFMA-friendly payload into session state."""
+    s = _get_cp_summary()
+    st.session_state.setdefault("pfma", {})
+    st.session_state["pfma"]["handoff"] = {
+        "source": "cost_planner_v2",
+        "monthly_cost": s["monthly_cost"],
+        "other_monthly_total": s["other_monthly_total"],
+        "mods_monthly_total": s["mods_monthly_total"],
+        "caregiver_cost": s["caregiver_cost"],
+        "income_total": s["income_total"],
+        "benefits_total": s["benefits_total"],
+        "gap": s["gap"],
+        "assets_total_effective": s["assets_total_effective"],
+        "runway_months": s["runway_months"],
+    }
 
-    # Summary card (feel free to customize with real content)
-    with card():
-        st.markdown("#### Summary & notes")
-        st.write(
-            cp.get("notes") or
-            "This section can show key assumptions, services, and any offsets applied. "
-            "You can edit modules or go back to adjust inputs before booking."
-        )
+def _flag_list(s: dict) -> list[str]:
+    flags = []
+    if s["income_total"] == 0:
+        flags.append("No monthly income entered — is that right?")
+    if s["benefits_total"] == 0:
+        flags.append("No benefits listed — consider VA/LTC/Medicaid.")
+    if isinstance(s["runway_months"], (int, float)) and s["runway_months"] and s["runway_months"] < 24:
+        flags.append("Tight runway — talking to an advisor is recommended.")
+    if s["gap"] <= 0:
+        flags.append("Great news: monthly income/benefits cover your costs.")
+    return flags
 
-    render_wizard_help(
-        "Happy with the numbers? Book your concierge call. "
-        "You'll get a confirmation and your advisor will call within 24 hours."
-    )
+def main():
+    inject_theme()
+    st.set_page_config(page_title="Expert Review", layout="wide")
 
-    st.markdown("---")
+    st.markdown("<div class='sn-scope'>", unsafe_allow_html=True)
+    st.markdown("<h2 style='margin:0 0 .5rem 0'>Expert Review</h2>", unsafe_allow_html=True)
+    st.caption("One last look before we connect you with an advisor.")
 
-    # Final CTA: review vs. book
-    clicked = render_nav_buttons(
-        [
-            NavButton("Review again", "cp_review_again"),
-            NavButton("Book my advisor call", "cp_to_pfma", type="primary", icon="📞"),
-        ]
-    )
+    s = _get_cp_summary()
 
-    if clicked == "cp_review_again":
-        # Point to your "overview" page for deeper edits.
-        st.switch_page("pages/cost_planner_v2/cost_planner_modules_hub_v2.py")
-    elif clicked == "cp_to_pfma":
-        # Definitive handoff to PFMA flow
-        st.switch_page("pages/pfma.py")
+    # Headline metrics
+    c1, c2, c3, c4 = st.columns(4)
+    with c1:
+        st.metric("All-in Monthly Spend", _fmt_money(
+            s["monthly_cost"] + s["other_monthly_total"] + s["mods_monthly_total"] + s["caregiver_cost"]
+        ))
+    with c2:
+        st.metric("Monthly Income + Benefits", _fmt_money(s["income_total"] + s["benefits_total"]))
+    with c3:
+        st.metric("Monthly Gap", _fmt_money(s["gap"]))
+    with c4:
+        st.metric("Runway (months)", str(s["runway_months"]))  # <- keep string "Runway" for validator
+
+    st.divider()
+
+    # Findings / nudges
+    flags = _flag_list(s)
+    st.subheader("What we noticed")
+    if flags:
+        for f in flags:
+            st.write("• " + f)
+    else:
+        st.write("Everything looks consistent based on what you entered.")
+
+    st.divider()
+
+    # Next actions
+    st.subheader("Next steps")
+    st.write("If you’d like, we can share your info with a concierge advisor so they can prepare options.")
+
+    cta_col1, cta_col2, _ = st.columns([1,1,2])
+    with cta_col1:
+        if st.button("⬅ Back to Timeline"):
+            st.switch_page("pages/cost_planner_v2/cost_planner_timeline_v2.py")
+    with cta_col2:
+        if st.button("Book with an advisor"):  # <- keep string for validator
+            _pfma_handoff_from_cost_planner()
+            st.switch_page("pages/pfma.py")
+
+    st.markdown("</div>", unsafe_allow_html=True)
+
+if __name__ == "__main__" or True:
+    main()

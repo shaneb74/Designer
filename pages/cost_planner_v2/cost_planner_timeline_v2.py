@@ -14,6 +14,29 @@ from __future__ import annotations
 import math
 import streamlit as st
 
+def _to_num(x, default=0):
+    """Coerce x into a float: handles None, dicts, and '$1,234' strings."""
+    try:
+        if x is None:
+            return float(default)
+        if isinstance(x, (int, float)):
+            return float(x)
+        if isinstance(x, dict):
+            # common shapes like {'value': ...}, {'amount': ...}
+            for k in ('value', 'amount', 'monthly', 'total'):
+                if k in x:
+                    return _to_num(x[k], default)
+            return float(default)
+        if isinstance(x, str):
+            t = x.strip().replace(',', '').replace('$', '')
+            if t == '':
+                return float(default)
+            return float(t)
+        return float(x)
+    except Exception:
+        return float(default)
+
+
 # PFMA theme (safe fallback if unavailable)
 try:
     from ui.pfma import apply_pfma_theme
@@ -73,22 +96,22 @@ st.markdown(
 )
 
 # --- Pull inputs (robust defaults) ---
-monthly_cost          = int(_get("setting_cost.monthly_cost", 0))             # from Setting & Cost
-other_monthly_total   = int(_get("expenses.other_monthly_total", 0))          # from Other Monthly Costs
-mods_monthly_total    = int(_get("home_mods.mods_monthly_total", 0))          # from Home Mods
-income_total          = int(_get("income.income_total", 0))                   # from Income
-benefits_total        = int(_get("benefits.benefits_total", 0))               # from Benefits
-assets_total_effective= int(_get("assets.assets_total_effective", 0))         # from Assets
+monthly_cost          = int(round(_to_num(_get("setting_cost.monthly_cost", 0))))             # from Setting & Cost
+other_monthly_total   = int(round(_to_num(_get("expenses.other_monthly_total", 0))))          # from Other Monthly Costs
+mods_monthly_total    = int(round(_to_num(_get("home_mods.mods_monthly_total", 0))))          # from Home Mods
+income_total          = int(round(_to_num(_get("income.income_total", 0))))                   # from Income
+benefits_total        = int(round(_to_num(_get("benefits.benefits_total", 0))))               # from Benefits
+assets_total_effective= int(round(_to_num(_get("assets.assets_total_effective", 0))))         # from Assets
 
 # Caregiver Support (include if user added it)
 caregiver_cost        = 0
 caregiver_type        = _get("caregiver.caregiver_type", "")
 include_caregiver     = bool(_get("caregiver.include_caregiver_cost", False))
 if str(caregiver_type).lower() == "hired aide" and include_caregiver:
-    caregiver_cost = int(_get("caregiver.caregiver_cost", 3600))
+    caregiver_cost = int(round(_to_num(_get("caregiver.caregiver_cost", 3600))))
 
 # Liquidity (one-time) for display + fallback assets if assets not entered
-liquidity_total       = int(_get("liquidity.liquidity_total", 0))
+liquidity_total       = int(round(_to_num(_get("liquidity.liquidity_total", 0))))
 keeping_car           = bool(_get("flags.keeping_car", True))
 
 # --- Calculations ---
