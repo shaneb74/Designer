@@ -138,7 +138,7 @@ with cost_planner_page_container():
 
     if clicked == "cp_review_again":
         # Point to your "overview" page for deeper edits.
-        st.switch_page("pages/cost_planner_modules.py")
+        st.switch_page("pages/cost_planner_v2/cost_planner_modules_hub_v2.py")
     elif clicked == "cp_to_pfma":
         # Definitive handoff to PFMA flow
         st.switch_page("pages/pfma.py")

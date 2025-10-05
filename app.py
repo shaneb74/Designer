@@ -8,6 +8,21 @@ import inspect
 from pathlib import Path
 import streamlit as st
 
+try:
+    from streamlit.runtime.pages_manager import register_pages  # legacy Streamlit only
+except Exception:
+    def register_pages(*args, **kwargs):
+        # Newer Streamlit doesn't expose this; discovery happens via ./pages/
+        return None
+
+from pathlib import Path
+
+# Include subfolder pages manually
+cp_v2_dir = Path(__file__).parent / "pages" / "cost_planner_v2"
+if cp_v2_dir.exists():
+    for py_file in sorted(cp_v2_dir.glob("*.py")):
+        register_pages([str(py_file)])
+
 # =========================
 # Debug / guardrail toggles
 # =========================
