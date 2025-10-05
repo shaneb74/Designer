@@ -231,6 +231,17 @@ INTENDED = [
     ("pages/cost_planner_housing.py", "Housing Path", "🏡", False),
     ("pages/cost_planner_benefits.py", "Benefits Check", "💳", False),
     ("pages/cost_planner_mods.py", "Age-in-Place Upgrades", "🔧", False),
+    # --- Cost Planner v2 (PFMA-style UI) ---
+    ("pages/cost_planner_v2/cost_planner_landing_v2.py",        "Cost Planner v2 · Landing",            "💰", False),
+    ("pages/cost_planner_v2/cost_planner_modules_hub_v2.py",     "Cost Planner v2 · Modules Hub",        "🧩", False),
+    ("pages/cost_planner_v2/cost_planner_income_v2.py",          "Cost Planner v2 · Income",             "📈", False),
+    ("pages/cost_planner_v2/cost_planner_expenses_v2.py",        "Cost Planner v2 · Expenses",           "🧾", False),
+    ("pages/cost_planner_v2/cost_planner_benefits_v2.py",        "Cost Planner v2 · Benefits",           "🎖️", False),
+    ("pages/cost_planner_v2/cost_planner_home_v2.py",            "Cost Planner v2 · Home Decisions",     "🏠", False),
+    ("pages/cost_planner_v2/cost_planner_caregiver_v2.py",       "Cost Planner v2 · Caregiver Support",  "🤝", False),
+    ("pages/cost_planner_v2/cost_planner_assets_v2.py",          "Cost Planner v2 · Assets",             "💼", False),
+    ("pages/cost_planner_v2/cost_planner_timeline_v2.py",        "Cost Planner v2 · Timeline (Results)", "📊", False),
+
 
     ("pages/expert_review.py", "Expert Review", "🔎", False),
     ("pages/cost_planner_evaluation.py", "Cost Planner: Evaluation", "🔍", False),
